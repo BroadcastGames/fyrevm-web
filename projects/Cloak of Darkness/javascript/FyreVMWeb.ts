@@ -54,8 +54,7 @@ module FyreVMWeb {
         private quetzalData: FyreVM.Quetzal;
         private contentDefinition: string[];
 
-        private testCallerReady()
-        {
+        private testCallerReady() {
             if (this.InputElement == undefined) {
                 throw "FyreVM.Manager.InputElement must be defined before loading a story.";
             }
