@@ -54,8 +54,8 @@ module FyreVMWeb {
         private quetzalData: FyreVM.Quetzal;
         private contentDefinition: string[];
 
-        public LoadStory(url: string) {
-
+        private testCallerReady()
+        {
             if (this.InputElement == undefined) {
                 throw "FyreVM.Manager.InputElement must be defined before loading a story.";
             }
@@ -69,6 +69,10 @@ module FyreVMWeb {
                     }
                 }
             };
+        }
+
+        public LoadStory(url: string) {
+            this.testCallerReady();
 
             var reader = new XMLHttpRequest();
             reader.open('GET', url);
@@ -81,6 +85,14 @@ module FyreVMWeb {
             }
             reader.send()
         }
+
+        public LoadStoryBase64(base64game: string) {
+            this.testCallerReady();
+
+            this.wrapper = FyreVM.EngineWrapper.loadFromBase64(base64game, true);
+            this.ProcessCommand(this.wrapper.run());
+        }
+
 
         public SendCommand(command: string) {
             setTimeout( () => this.ProcessCommand(this.wrapper.receiveLine(command)), 0)
